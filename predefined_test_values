@@ -1,0 +1,156 @@
+vt=40:60;
+v1=0;
+V2=60:130;
+V3=60:130;
+V4=0;
+f2=30:90;
+f4=30:90;
+
+
+
+%car1
+combns = Combinations(vt,v1);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv1=0;
+else
+    Rv1= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+%car2
+combns = Combinations(Vt*sind(f2),v2);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv2=0;
+else
+    Rv2= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+%car3
+combns = Combinations(vt,v3);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv3=0;
+else
+    Rv3= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+%car4
+combns = Combinations(Vt*sind(f4),v4);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv4=0;
+else
+    Rv4= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+% Rv1=Vt-v1
+% % at V1=0 
+% Rv1=Vt   
+
+%car1
+combns = Combinations(vt,v1);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv1=0;
+else
+    Rv1= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+% Rv2=V2-Vt*sind(f2)
+
+%car2
+combns = Combinations(Vt*sind(f2),v2);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv2=0;
+else
+    Rv2= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+% Rv3=V3-Vt	
+
+%car3
+combns = Combinations(vt,v3);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv3=0;
+else
+    Rv3= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+
+
+% Rv4 =Vt*sind(f4)-V4    
+
+%car4
+combns = Combinations(Vt*sind(f4),v4);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv4=0;
+else
+    Rv4= RV_1(combns(:,1),combns(:,2));    
+end
+
+
+% at V4=0 
+% Rv4=Vt*sind(f4)
+% 
+% % In case of impact from object 3 (with velocity V3) 
+% Rv3=V3-Vt        
+% % Car T tends to move at speed of V3 avoiding impact, making relative speed zero i.e.  V3=Vt 
+% % Hence
+% Rv3=0 
+
+% Then the impact with other bodies initiates due to acceleration to avoid impact from object 3  
+% According to relative speeds the impact should be initiated. As relative speed is more then, collision damage would be more. As there is less impact speed there will be less damage (According Momentum transfer law) 
+% As
+% V3=Vt  
+
+% Rv2=V2-V3*sind(f2)
+
+% Rv2=V2-Vt*sind(f2)
+
+%car2
+combns = Combinations(V3*sind(f2),v2);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv2=0;
+else
+    Rv2= RV_1(combns(:,1),combns(:,2))   
+end
+
+
+% Rv4 =V3*sind(f4) 
+
+%car4
+combns = Combinations(V3*sind(f4),v4);
+a= combns(:,1);
+b= combns(:,2);
+if a==b
+    Rv4=0;
+else
+    Rv4= RV_1(combns(:,1),combns(:,2))   
+end
+
+
+% Hence to give impact preference, the impact of lower damage to the car should be initiated, that is impact with 1, 2, 3, and 4. 
+% Hence Algorithm should follow 
+m=[Rv2 V3 Rv4];
+min(m)
